@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  employeesapi:
+    image: ${DOCKER_REGISTRY-}employeesapi
+    build:
+      context: .
+      dockerfile: EmployeesAPI/Dockerfile
+    environment:
+      - CONNECTION_STRING="server=EmployeesDBService; database=EmployeesDB; User ID=sa; Password=DevPass"
+
+  db:
+    container_name: "EmployeesDBService"
+    image: postgres:16.0-alpine3.18
+    ports:
+      - 1401:1433 
+    environment:
+      -  POSTGRES_PASSWORD="DevPass"
+    networks:
+      - development
+
+networks:
+  development:
