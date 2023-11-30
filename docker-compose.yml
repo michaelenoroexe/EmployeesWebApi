@@ -7,15 +7,19 @@ services:
       context: .
       dockerfile: EmployeesAPI/Dockerfile
     environment:
-      - CONNECTION_STRING="server=EmployeesDBService; database=EmployeesDB; User ID=sa; Password=DevPass"
+      CONNECTION_STRING: server=EmployeesDBService; database=EmployeesDB; Username=postgres; Password=DevPass; 
+    networks:
+      - development
 
   db:
     container_name: "EmployeesDBService"
     image: postgres:16.0-alpine3.18
     ports:
-      - 1401:1433 
+      - 5432:5432
     environment:
-      -  POSTGRES_PASSWORD="DevPass"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: DevPass
+      POSTGRES_DB: EmployeesDB
     networks:
       - development
 

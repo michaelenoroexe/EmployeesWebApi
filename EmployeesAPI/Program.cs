@@ -12,6 +12,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
+using (var initializer = new DBInitializer())
+{
+    initializer.Initialize();
+}
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
