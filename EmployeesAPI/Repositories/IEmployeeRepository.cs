@@ -1,8 +1,8 @@
 ﻿using EmployeesAPI.DTO.Employee;
 
-namespace EmployeesAPI.Services;
+namespace EmployeesAPI.Repositories;
 
-public interface IEmployeeService
+public interface IEmployeeRepository
 {
     /// <summary>
     /// List of employees for whole company

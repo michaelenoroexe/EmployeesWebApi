@@ -1,9 +1,9 @@
 ﻿using EmployeesAPI.DTO.Department;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EmployeesAPI.Services;
+namespace EmployeesAPI.Repositories;
 
-public interface IDepartmentService
+public interface IDepartmentRepository
 {
     public Task<IEnumerable<DepartmentDto>> GetDepartmentsAsync(int companyId);
     public Task<DepartmentDto> GetDepartmentAsync(int id);

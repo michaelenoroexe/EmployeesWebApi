@@ -1,5 +1,5 @@
 ﻿using EmployeesAPI.DTO.Department;
-using EmployeesAPI.Services;
+using EmployeesAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -9,16 +9,16 @@ namespace EmployeesAPI.Controllers
     [Route("api/companies/{companyId}/departments")]
     public class DepartmentController : ControllerBase
     {
-        private IDepartmentService _departmentService;
-        public DepartmentController(IDepartmentService departmentService)
+        private IDepartmentRepository _departmentRepository;
+        public DepartmentController(IDepartmentRepository departmentRepository)
         {
-            _departmentService = departmentService;
+            _departmentRepository = departmentRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetDepartments(int companyId)
         {
-            var departments = await _departmentService.GetDepartmentsAsync(companyId);
+            var departments = await _departmentRepository.GetDepartmentsAsync(companyId);
 
             return Ok(departments);
         }
@@ -26,7 +26,7 @@ namespace EmployeesAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDepartment(int id)
         {
-            var departments = await _departmentService.GetDepartmentAsync(id);
+            var departments = await _departmentRepository.GetDepartmentAsync(id);
 
             return Ok(departments);
         }
@@ -35,7 +35,7 @@ namespace EmployeesAPI.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> Post(int companyId, [FromBody] DepartmentForCreationDto department)
         {
-            var departmentId = await _departmentService.CreateDepartmentAsync(companyId, department);
+            var departmentId = await _departmentRepository.CreateDepartmentAsync(companyId, department);
 
             var result = new ObjectResult(new { createdId = departmentId });
             result.StatusCode = (int)HttpStatusCode.Created;
@@ -47,7 +47,7 @@ namespace EmployeesAPI.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> Put(int id, [FromBody] DepartmentForUpdateDto department)
         {
-            await _departmentService.UpdateDepartmentAsync(id, department);
+            await _departmentRepository.UpdateDepartmentAsync(id, department);
 
             return NoContent();
         }
@@ -55,7 +55,7 @@ namespace EmployeesAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _departmentService.DeleteDepartmentAsync(id);
+            await _departmentRepository.DeleteDepartmentAsync(id);
 
             return NoContent();
         }

@@ -1,8 +1,8 @@
 ﻿using EmployeesAPI.DTO.Company;
 
-namespace EmployeesAPI.Services;
+namespace EmployeesAPI.Repositories;
 
-public interface ICompanyService
+public interface ICompanyRepository
 {
     public Task<IEnumerable<CompanyDto>> GetAllCompaniesAsync();
     public Task<int> CreateCompanyAsync(CompanyForCreationDto newCompany);

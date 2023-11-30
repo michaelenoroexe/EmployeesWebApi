@@ -1,5 +1,5 @@
 ﻿using EmployeesAPI.DTO.Employee;
-using EmployeesAPI.Services;
+using EmployeesAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -9,18 +9,18 @@ namespace EmployeesAPI.Controllers
     [Route("api/companies/{companyId}/department/{departmentId}/employees")]
     public class EmployeeController : ControllerBase
     {
-        private IEmployeeService _employeeService;
+        private IEmployeeRepository _employeeRepository;
 
-        public EmployeeController(IEmployeeService employeeService)
+        public EmployeeController(IEmployeeRepository employeeRepository)
         {
-            _employeeService = employeeService;
+            _employeeRepository = employeeRepository;
         }
 
         [HttpGet]
         [Route("/api/companies/{companyId}/employees")]
         public async Task<IActionResult> GetEmployeesForCompany(int companyId)
         {
-            var employees = await _employeeService.GetEmployeesForCompanyAsync(companyId);
+            var employees = await _employeeRepository.GetEmployeesForCompanyAsync(companyId);
 
             return Ok(employees);
         }
@@ -28,7 +28,7 @@ namespace EmployeesAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetEmployeesForDepartment(int departmentId)
         {
-            var employees = await _employeeService.GetEmployeesForDepartmentAsync(departmentId);
+            var employees = await _employeeRepository.GetEmployeesForDepartmentAsync(departmentId);
 
             return Ok(employees);
         }
@@ -36,7 +36,7 @@ namespace EmployeesAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var employee = await _employeeService.GetEmployeeAsync(id);
+            var employee = await _employeeRepository.GetEmployeeAsync(id);
 
             return Ok(employee);
         }
@@ -45,7 +45,7 @@ namespace EmployeesAPI.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateEmployee(int departmentId, [FromBody] EmployeeForCreationDto employee)
         {
-            var companyId = await _employeeService.CreateEmployeeAsync(departmentId, employee);
+            var companyId = await _employeeRepository.CreateEmployeeAsync(departmentId, employee);
 
             var result = new ObjectResult(new { createdId = companyId });
             result.StatusCode = (int)HttpStatusCode.Created;
@@ -57,7 +57,7 @@ namespace EmployeesAPI.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> PatchEmployee(int id, [FromBody] EmployeeForUpdateDto employee)
         {
-            await _employeeService.UpdateEmployeeAsync(id, employee);
+            await _employeeRepository.UpdateEmployeeAsync(id, employee);
 
             return NoContent();
         }
@@ -65,7 +65,7 @@ namespace EmployeesAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _employeeService.DeleteEmployeeAsync(id);
+            await _employeeRepository.DeleteEmployeeAsync(id);
 
             return NoContent();
         }

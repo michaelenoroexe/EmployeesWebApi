@@ -1,25 +1,25 @@
 ﻿using EmployeesAPI.DTO.Company;
-using EmployeesAPI.Services;
+using EmployeesAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace EmployeesAPI.Controllers
 {
-    
+
     [ApiController]
     [Route("api/companies")]
     public class CompanyController : ControllerBase
     {
-        private ICompanyService _companiesService;
-        public CompanyController(ICompanyService companiesService) 
+        private ICompanyRepository _companiesRepository;
+        public CompanyController(ICompanyRepository companiesRepository) 
         {
-            _companiesService = companiesService;
+            _companiesRepository = companiesRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetCompanyList()
         {
-            var companies = await _companiesService.GetAllCompaniesAsync();
+            var companies = await _companiesRepository.GetAllCompaniesAsync();
 
             return Ok(companies);
         }
@@ -28,7 +28,7 @@ namespace EmployeesAPI.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateCompany([FromBody] CompanyForCreationDto companyForCreation)
         {
-            var companyId = await _companiesService.CreateCompanyAsync(companyForCreation);
+            var companyId = await _companiesRepository.CreateCompanyAsync(companyForCreation);
 
             var result = new ObjectResult(new { createdId = companyId });
             result.StatusCode = (int)HttpStatusCode.Created;
@@ -41,7 +41,7 @@ namespace EmployeesAPI.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdateCompany(int id, [FromBody] CompanyForUpdateDto company)
         {
-            await _companiesService.UpdateCompanyAsync(id, company);
+            await _companiesRepository.UpdateCompanyAsync(id, company);
 
             return NoContent();
         }
@@ -50,7 +50,7 @@ namespace EmployeesAPI.Controllers
         [Route("{id}")]
         public async Task<IActionResult> DeleteCompany(int id)
         {
-            await _companiesService.DeleteCompanyAsync(id);
+            await _companiesRepository.DeleteCompanyAsync(id);
 
             return NoContent();
         }
