@@ -3,4 +3,4 @@
 /// <summary>
 /// Passport data of employee
 /// </summary>
-public record Passport(int Id, string Type, string Number);
+public record Passport(string Type, string Number);
