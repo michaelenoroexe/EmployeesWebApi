@@ -5,8 +5,10 @@ namespace EmployeesAPI.DTO.Employee;
 public record EmployeeForCreationDto
 {
     [Required(ErrorMessage = "Employee first name is a required field.")]
+    [MaxLength(50, ErrorMessage = "Max length of employee name is 50 symbols.")]
     public string Name { get; init; } = null!;
     [Required(ErrorMessage = "Employee surname is a required field.")]
+    [MaxLength(50, ErrorMessage = "Max length of employee surname is 50 symbols.")]
     public string Surname { get; init; } = null!;
     [Required(ErrorMessage = "Employee phone is a required field.")]
     [RegularExpression(
