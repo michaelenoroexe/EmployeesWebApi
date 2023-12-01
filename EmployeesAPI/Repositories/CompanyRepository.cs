@@ -29,7 +29,7 @@ public class CompanyRepository : ICompanyRepository, IDisposable
     {
         await db.ExecuteAsync(
             "DELETE FROM companies " +
-            "WHERE id=@id", 
+            "WHERE id=@id",
             new { id = companyId });
     }
 
@@ -45,7 +45,7 @@ public class CompanyRepository : ICompanyRepository, IDisposable
         await db.ExecuteAsync(
             "UPDATE companies " +
             "SET name=@name " +
-            "WHERE id=@id", 
+            "WHERE id=@id",
             new { id, name = newCompany.Name });
     }
     public void Dispose()

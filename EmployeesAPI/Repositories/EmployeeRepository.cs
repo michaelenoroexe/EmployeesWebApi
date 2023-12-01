@@ -1,9 +1,6 @@
 ﻿using Dapper;
-using EmployeesAPI.DTO.Department;
 using EmployeesAPI.DTO.Employee;
-using EmployeesAPI.Entities;
 using Npgsql;
-using System.ComponentModel.Design;
 using System.Data;
 
 namespace EmployeesAPI.Repositories;
@@ -32,12 +29,12 @@ public class EmployeeRepository : IEmployeeRepository, IDisposable
     /// </summary>
     private string GetEmployeeSqlQuery(string whereString)
     {
-         return "SELECT emp.id, emp.name, emp.surname, emp.phone, companyId, " +
-            "passportType, passportNumber, " +
-            "dep.name, dep.phone " +
-            "FROM employees as emp " +
-            "JOIN departments as dep ON emp.departmentId = dep.id " + 
-            whereString;
+        return "SELECT emp.id, emp.name, emp.surname, emp.phone, companyId, " +
+           "passportType, passportNumber, " +
+           "dep.name, dep.phone " +
+           "FROM employees as emp " +
+           "JOIN departments as dep ON emp.departmentId = dep.id " +
+           whereString;
     }
 
     public EmployeeRepository()
@@ -77,7 +74,7 @@ public class EmployeeRepository : IEmployeeRepository, IDisposable
             GetEmployeeSqlQuery("WHERE emp.id=@id ") + " LIMIT 1",
             new Type[] { typeof(EmployeeDto), typeof(EmployeeAdditionalInfoDto) },
             param: new { id },
-            
+
             map: GetEmployeeDtoFromParams,
             splitOn: "passportType");
 
@@ -91,7 +88,7 @@ public class EmployeeRepository : IEmployeeRepository, IDisposable
             new Type[] { typeof(EmployeeDto), typeof(EmployeeAdditionalInfoDto) },
             param: new { companyId },
             map: GetEmployeeDtoFromParams,
-            splitOn: "passportType"  ) ;
+            splitOn: "passportType");
 
         return emp;
     }

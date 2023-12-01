@@ -41,7 +41,7 @@ public class DepartmentRepository : IDepartmentRepository, IDisposable
     {
         var department = await db.QueryFirstAsync<DepartmentDto>(
             "SELECT id, name, phone " +
-            "FROM departments WHERE id=@id", 
+            "FROM departments WHERE id=@id",
             new { id });
 
         return department;
@@ -52,7 +52,7 @@ public class DepartmentRepository : IDepartmentRepository, IDisposable
         var companies = await db.QueryAsync<DepartmentDto>(
             "SELECT id, name, phone " +
             "FROM departments " +
-            "WHERE companyId=@companyId", 
+            "WHERE companyId=@companyId",
             new { companyId });
 
         return companies;

@@ -1,5 +1,4 @@
 ﻿using EmployeesAPI.DTO.Department;
-using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeesAPI.Repositories;
 

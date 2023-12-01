@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace EmployeesAPI.DTO.Employee;
+﻿namespace EmployeesAPI.DTO.Employee;
 
 public record PassportDto
 {

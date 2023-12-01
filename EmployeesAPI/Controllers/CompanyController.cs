@@ -10,8 +10,8 @@ namespace EmployeesAPI.Controllers
     [Route("api/companies")]
     public class CompanyController : ControllerBase
     {
-        private ICompanyRepository _companiesRepository;
-        public CompanyController(ICompanyRepository companiesRepository) 
+        private readonly ICompanyRepository _companiesRepository;
+        public CompanyController(ICompanyRepository companiesRepository)
         {
             _companiesRepository = companiesRepository;
         }

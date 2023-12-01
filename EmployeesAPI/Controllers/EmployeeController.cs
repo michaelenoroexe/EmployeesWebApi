@@ -9,7 +9,7 @@ namespace EmployeesAPI.Controllers
     [Route("api/companies/{companyId}/department/{departmentId}/employees")]
     public class EmployeeController : ControllerBase
     {
-        private IEmployeeRepository _employeeRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
         public EmployeeController(IEmployeeRepository employeeRepository)
         {

@@ -4,7 +4,7 @@ namespace EmployeesAPI.DTO.Employee;
 
 public record EmployeeForUpdateDto
 {
-    [RegularExpression( @"^[a-zA-Z0-9а-яА-Я _]$",
+    [RegularExpression(@"^[a-zA-Z0-9а-яА-Я _]$",
         ErrorMessage = "Name contain invalid characters.")]
     [MaxLength(50, ErrorMessage = "Max length of employee name is 50 symbols.")]
     public string? Name { get; init; }
