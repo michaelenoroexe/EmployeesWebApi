@@ -5,11 +5,10 @@ using System.Data;
 namespace EmployeesAPI;
 
 /// <summary>
-/// Class to initialize db structure.
+/// Class to initialize db structure
 /// </summary>
 public class DBInitializer : IDisposable
 {
-    private readonly string dbName;
     private readonly IDbConnection connect;
 
     private bool IsTablesExists()
@@ -22,30 +21,30 @@ public class DBInitializer : IDisposable
     }
     private void CreateTables()
     {
-        connect.Execute("CREATE TABLE Companies" +
+        connect.Execute("CREATE TABLE companies" +
                         "(" +
-                            "Id SERIAL PRIMARY KEY," +
-                            "Name VARCHAR(50) UNIQUE NOT NULL" +
+                            "id SERIAL PRIMARY KEY," +
+                            "name VARCHAR(50) UNIQUE NOT NULL" +
                         ")");
 
-        connect.Execute("CREATE TABLE Departments" +
+        connect.Execute("CREATE TABLE departments" +
                         "(" +
-                            "Id SERIAL PRIMARY KEY," +
-                            "Name VARCHAR(50) NOT NULL," +
-                            "Phone VARCHAR(16) NOT NULL," +
-                            "CompanyId INTEGER REFERENCES Companies(Id) ON DELETE CASCADE," +
+                            "id SERIAL PRIMARY KEY," +
+                            "name VARCHAR(50) NOT NULL," +
+                            "phone VARCHAR(16) NOT NULL," +
+                            "companyId INTEGER REFERENCES Companies(Id) ON DELETE CASCADE," +
                             "UNIQUE(Name, CompanyId)" +
                         ")");
 
-        connect.Execute("CREATE TABLE Employees" +
+        connect.Execute("CREATE TABLE employees" +
                         "(" +
-                            "Id SERIAL PRIMARY KEY," +
-                            "Name VARCHAR(50) NOT NULL," +
-                            "Surname VARCHAR(50) NOT NULL," +
-                            "Phone VARCHAR(16) NOT NULL," +
-                            "PassportType VARCHAR(30) NOT NULL," +
-                            "PassportNumber VARCHAR(30) NOT NULL," +
-                            "DepartmentId INTEGER REFERENCES Departments(Id) ON DELETE CASCADE" +
+                            "id SERIAL PRIMARY KEY," +
+                            "name VARCHAR(50) NOT NULL," +
+                            "surname VARCHAR(50) NOT NULL," +
+                            "phone VARCHAR(16) NOT NULL," +
+                            "passportType VARCHAR(30) NOT NULL," +
+                            "passportNumber VARCHAR(30) NOT NULL," +
+                            "departmentId INTEGER REFERENCES Departments(Id) ON DELETE CASCADE" +
                         ")");
     }
 
