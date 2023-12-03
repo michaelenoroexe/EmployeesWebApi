@@ -1,5 +1,13 @@
 using EmployeesAPI;
 using EmployeesAPI.Repositories;
+using Serilog;
+using Serilog.Exceptions;
+
+Log.Logger = new LoggerConfiguration()
+    .Enrich.WithExceptionDetails()
+    .Enrich.WithProperty("Source", "API")
+    .WriteTo.File("log.json")
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
